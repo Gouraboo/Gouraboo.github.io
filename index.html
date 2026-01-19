@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourab Ganguly - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: #00f5ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, #8b5cf6);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(20, 20, 20, 0.98);
+            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 0.5rem;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 245, 255, 0.1);
+            color: #00f5ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 60px;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, transparent 70%),
+                        linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 245, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0, 245, 255, 0.5);
+        }
+
+        /* Projects Section */
+        .projects {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            background: #0f0f0f;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .projects-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            transition: all 0.3s;
+            animation: scaleIn 0.5s ease;
+            cursor: pointer;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            flex: 0 0 calc(50% - 1rem);
+            max-width: calc(50% - 1rem);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card.full-width {
+            flex: 0 0 calc(50% - 1rem);
+            max-width: calc(50% - 1rem);
+            margin: 0 auto;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 10, 20, 0.85) 0%, rgba(20, 10, 40, 0.85) 100%);
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .project-card:hover::before {
+            background: linear-gradient(135deg, rgba(0, 10, 20, 0.7) 0%, rgba(20, 10, 40, 0.7) 100%);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Individual project backgrounds */
+        .project-card.drone {
+            background-image: url('images/drone.jpg');
+        }
+
+        .project-card.calculator {
+            background-image: url('images/calculator.jpg');
+        }
+
+        .project-card.hangman {
+            background-image: url('images/hangman.jpg');
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+            border-color: rgba(0, 245, 255, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00f5ff;
+        }
+
+        .project-card p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #d0d0d0;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: rgba(0, 245, 255, 0.15);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            color: #00f5ff;
+        }
+
+        .more-projects {
+            text-align: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 3rem;
+            font-weight: 600;
+            animation: fadeInUp 1s ease;
+            letter-spacing: 1px;
+        }
+
+        /* About Section */
+        .about {
+            min-height: 80vh;
+            padding: 5rem 2rem;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%),
+                        linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #b0b0b0;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: #0f0f0f;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: #00f5ff;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s;
+            z-index: -1;
+        }
+
+        .social-link:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 25px rgba(0, 245, 255, 0.4);
+            color: #0a0a0a;
+        }
+
+        /* Footer */
+        footer {
+            background: #050505;
+            color: #808080;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15, 15, 15, 0.98);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background: rgba(30, 30, 30, 0.95);
+            }
+
+            .project-card,
+            .project-card.full-width {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Gourab Ganguly</div>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#projects">Projects ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#drone">Drone Project</a>
+                        <a href="#calculator">Calculator</a>
+                        <a href="#hangman">Hangman Game</a>
+                    </div>
+                </li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Gourab Ganguly</h1>
+            <p>Welcome! Explore my journey through code, circuits, and creative problem-solving.</p>
+            <a href="#projects" class="cta-button">View My Work</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card drone fade-in" id="drone">
+                <div class="project-card-content">
+                    <h3>🚁 Drone Project</h3>
+                    <p>A drone build using MicroPython that successfully responds to pitch, yaw, and roll inputs. This project involved integrating gyroscopes and accelerometers to read orientation data and translate it into motor control signals.</p>
+                    <p>I implemented basic flight control logic that allows the drone to react to movement commands in real-time. While still in development for full flight capability, the system demonstrates functional sensor fusion and responsive control algorithms.</p>
+                    <div class="project-tag">MicroPython</div>
+                    <div class="project-tag">Embedded Systems</div>
+                    <div class="project-tag">IoT</div>
+                </div>
+            </div>
+
+            <div class="project-card calculator fade-in" id="calculator">
+                <div class="project-card-content">
+                    <h3>🧮 Calculator</h3>
+                    <p>A comprehensive calculator application built in Java that handles a wide range of mathematical operations. Features include basic arithmetic (addition, subtraction, multiplication, division) along with advanced functions for complex calculations.</p>
+                    <p>The standout feature is its ability to handle fraction calculations, making it versatile for different mathematical needs. I designed a clean, intuitive interface that ensures smooth user interaction and accurate results.</p>
+                    <div class="project-tag">Java</div>
+                    <div class="project-tag">GUI</div>
+                    <div class="project-tag">Mathematics</div>
+                </div>
+            </div>
+
+            <div class="project-card hangman full-width fade-in" id="hangman">
+                <div class="project-card-content">
+                    <h3>🎮 Hangman Game</h3>
+                    <p>A classic word-guessing game built in Java that challenges players to identify hidden words letter by letter. Players have limited attempts to guess correctly before the game ends, creating an engaging and strategic experience.</p>
+                    <p>The game features an interactive interface that displays the current word progress, remaining attempts, and guessed letters. I implemented game logic to handle user input validation, win/loss conditions, and dynamic word display updates.</p>
+                    <div class="project-tag">Java</div>
+                    <div class="project-tag">Game Dev</div>
+                    <div class="project-tag">Logic</div>
+                </div>
+            </div>
+        </div>
+        <div class="more-projects">...and many more projects</div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content fade-in">
+            <p>I'm a passionate developer and maker who believes in learning by doing. My journey in technology spans from low-level hardware programming to high-level software development, and I love exploring the full spectrum in between.</p>
+            <p>What drives me is curiosity—the desire to understand how things work and the determination to build them myself. Whether I'm soldering circuits for a quadcopter or debugging logic in a Java application, I approach every challenge as an opportunity to grow and create something meaningful.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="contact-content fade-in">
+            <p>Interested in collaborating or have questions about my work? Feel free to get in touch. I'm always excited to connect with like-minded developers and explore new opportunities.</p>
+            <div class="social-links">
+                <a href="#" class="social-link" title="GitHub">🔗</a>
+                <a href="#" class="social-link" title="LinkedIn">💼</a>
+                <a href="#" class="social-link" title="Email">✉️</a>
+                <a href="#" class="social-link" title="Twitter">🐦</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Gourab Ganguly. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add stagger effect to project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>
